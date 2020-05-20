@@ -75,5 +75,37 @@ mesmo assim, alguém ainda pode estar entre o client e o host, tendo acesso à t
 
 # Hashing
 
+É a terceira forma de encriptação usada no ssh
+a diferença do hash é que ele não consegui desencriptar, ele é um bagunçador
+e o que ele faz é verificar a autenticidade das comunicações, assim, se alguem no meio da comunicação mudar um mínimo detalhe, um hash totalmente diferente vai ser gerado, e no host side, em que a gente faz o hash de novo e compara os resultados do hash do client e do host, podemos ver se a mensagem foi mudada
 
+Isso é feito com  Hashbase Message Authentication Codes(HMAC)
 
+Então: 
+
+1. A conexão é estabelecida, client e host trocam key publica
+2. Baseado nessa key pública, ambos os lados tem acesso à symmetric key
+3. A symmetric key é utilizada para a conexão, porém um hash é utilizado para checar a integridade dos dados
+4. Por último, senha, mas para evitar o uso de senha podemos:
+
+Vamos criar um key-pair, para isso vamos para ~/.ssh e lá usamos o cogio
+ssh-keygen -C "willianliketavares@gmail.com"
+
+assim, criamos uma public e uma private rsa key-pair
+id_rsa => private
+id_rsa.pub => public
+
+agora vamos trocar as public keys entre o client e o host
+
+pbcopy < ~/.ssh/id_rsa.pub // Para copiar a pub key
+
+agora, vamos no servidor, vamos em ~/.ssh
+lá dentro deve ter authorized_keys e known_hosts
+dentro de authorized_keys vamos colar a key
+
+caso você só tenha um id_rsa ok
+caso tenha mais que uma, precisamos registrar a private key
+
+rodamos ssh-add ~/.ssh/id_rsa
+
+e ao tentar ssh into the server, vai funcionar
