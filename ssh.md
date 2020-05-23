@@ -88,7 +88,7 @@ Então:
 3. A symmetric key é utilizada para a conexão, porém um hash é utilizado para checar a integridade dos dados
 4. Por último, senha, mas para evitar o uso de senha podemos:
 
-Vamos criar um key-pair, para isso vamos para ~/.ssh e lá usamos o cogio
+Vamos criar um key-pair, para isso vamos para ~/.ssh e lá usamos o codigo
 ssh-keygen -C "willianliketavares@gmail.com"
 
 assim, criamos uma public e uma private rsa key-pair
@@ -109,3 +109,9 @@ caso tenha mais que uma, precisamos registrar a private key
 rodamos ssh-add ~/.ssh/id_rsa
 
 e ao tentar ssh into the server, vai funcionar
+
+Comandos: 
+
+Gerar key-pair = ssh-keygen -C "texto"
+Adicionar a key para o login automático = ssh-add ~/.ssh/nome_da_key.pub
+
